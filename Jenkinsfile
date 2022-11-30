@@ -54,7 +54,7 @@ pipeline{
     post{
         always{
             deleteDir()
-            sh 'sudo docker rmi 635145294553.dkr.ecr.us-east-1.amazonaws.com/vote:${BUILD_NUMBER}'
+            sh 'sudo docker rmi 270335494562.dkr.ecr.us-east-1.amazonaws.com/demovt:v${BUILD_NUMBER}'
         }
   }
 }
