@@ -1,5 +1,10 @@
 pipeline{
     agent {label 'worker'}
+    options{
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        disableConcurrentBuilds()
+        timeout(time: 1, unit: 'HOURS')
+    }
     environment{
         AWS_DEFAULT_REGION = 'us-east-1'
         SERVICE_NAME = 'vote'
@@ -46,4 +51,10 @@ pipeline{
             }
         }
     }
+    post{
+        always{
+            deleteDir()
+            sh 'sudo docker rmi 635145294553.dkr.ecr.us-east-1.amazonaws.com/vote:${BUILD_NUMBER}'
+        }
+  }
 }
